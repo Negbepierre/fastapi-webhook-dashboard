@@ -1,29 +1,46 @@
-# FastAPI Webhook Queue Simulation
+# 📬 FastAPI Webhook Dashboard
 
-This project demonstrates how a webhook system can be built using FastAPI, simulating how platforms like Stripe send events to your backend and how you can queue and process those events asynchronously.
+A FastAPI-based application that receives webhook events, stores them in a PostgreSQL database, and visualizes them on a Bootstrap-styled HTML dashboard.
 
-## 🚀 Live Demo  
-👉 [Live Webhook App](https://your-app-name.onrender.com/webhook) *(replace this after deployment)*
+## 🔧 Features
 
----
+- FastAPI backend with `/webhook` POST endpoint.
+- Stores incoming JSON events into PostgreSQL.
+- Displays events in a Bootstrap dashboard at `/dashboard`.
+- Queue worker setup ready for background jobs (e.g., Redis + RQ).
+- Includes seeding script for mock events.
 
-## 📦 What It Does
+## 📦 Tech Stack
 
-- Accepts webhook POST requests at `/webhook`
-- Immediately queues the request for background processing
-- Uses FastAPI’s `BackgroundTasks` to simulate a job worker
-- Prints status logs showing success/failure of event processing
+- **FastAPI** + **SQLAlchemy**
+- **PostgreSQL** (via psycopg2)
+- **Redis + RQ** (for background jobs)
+- **Bootstrap** (via CDN)
+- **Jinja2 Templates**
 
----
+## 🚀 Quickstart
 
-## 📁 Sample Payload
+1. **Clone repo** and create a virtual environment:
+   ```bash
+   git clone https://github.com/your-username/fastapi-webhook-dashboard.git
+   cd fastapi-webhook-dashboard
+   python3 -m venv venv && source venv/bin/activate
+2 Install dependencies: pip install -r requirements.txt
 
-Test it using Postman or curl:
+3 Configure your PostgreSQL credentials in db.py.
 
-```json
+4 Run the app:
+  uvicorn main:app --reload
+5 Send sample webhook:
+  Use Postman to POST http://127.0.0.1:8000/webhook with JSON:
+
+json
+Copy
+Edit
 {
   "event_id": "evt_001",
-  "amount": 49.99,
   "user_id": "user_123",
-  "status": "succeeded"
+  "amount": 59.99
 }
+6 View dashboard:
+Open http://127.0.0.1:8000/dashboard
